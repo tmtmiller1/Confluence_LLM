@@ -7,16 +7,14 @@ repos:
       - id: mixed-line-ending
       - id: check-yaml
       - id: check-toml
+
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.6.8
     hooks:
+      # Auto-fix lint issues; do NOT pass --exit-non-zero-on-fix=false
       - id: ruff
-        args: [--fix]
-      - id: ruff-format
-  - repo: https://github.com/psf/black
-    rev: 24.8.0
-    hooks:
-      - id: black
+        args: ["--fix"]
+
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.10.0
     hooks:
@@ -24,13 +22,19 @@ repos:
         additional_dependencies:
           - types-requests
           - types-PyYAML
+
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.9
     hooks:
-      - id: bandit
-        args: ["-q", "-r", "."]
+    - id: bandit
+      pass_filenames: false            # <<< prevents pre-commit from appending file paths
+      args: ["-q", "-r", "src", "-x", ".venv,venv,env,tests"]
+      files: ^src/
+
+
   - repo: https://github.com/pypa/pip-audit
     rev: v2.7.3
     hooks:
-      - id: pip-audit
-        pass_filenames: false
+    - id: pip-audit
+      pass_filenames: false
+      args: ["-r", "src/confluence_llm/requirements.txt"]

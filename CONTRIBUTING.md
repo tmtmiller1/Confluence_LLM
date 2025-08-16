@@ -9,4 +9,3 @@ pre-commit install
 pre-commit run --all-files
 mypy --strict .
 pytest -q
-
