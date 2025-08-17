@@ -27,9 +27,10 @@ repos:
     rev: 1.7.9
     hooks:
     - id: bandit
-      pass_filenames: false            # <<< prevents pre-commit from appending file paths
-      args: ["-q", "-r", "src", "-x", ".venv,venv,env,tests"]
+      pass_filenames: false
+      args: ["-q", "-r", "src", "-x", ".venv,venv,env,tests,__pycache__"]
       files: ^src/
+
 
 
   - repo: https://github.com/pypa/pip-audit
