@@ -108,6 +108,10 @@ class ScoredDoc:
 
 # -------- BM25 fallback --------
 class BM25Store:
+    def put(self, doc: dict[str, Any]) -> None:
+        """Insert a single document (adapter for ingest.Store protocol)."""
+        self.add([doc])
+
     def __init__(self) -> None:
         self.docs: list[dict[str, Any]] = []
         self.tfs: list[collections.Counter[str]] = []
@@ -176,6 +180,10 @@ class BM25Store:
 
 # -------- Embedding + FAISS --------
 class FAISSStore:
+    def put(self, doc: dict[str, Any]) -> None:
+        """Insert a single document (adapter for ingest.Store protocol)."""
+        self.add([doc])
+
     def __init__(self, model_name: str | None = None) -> None:
         self.docs: list[dict[str, Any]] = []
         self.vecs: Any = None  # numpy.ndarray | None
@@ -264,6 +272,10 @@ class FAISSStore:
 
 # -------- pgvector (PostgreSQL) --------
 class PgvectorStore:
+    def put(self, doc: dict[str, Any]) -> None:
+        """Insert a single document (adapter for ingest.Store protocol)."""
+        self.add([doc])
+
     """pgvector-backed store (psycopg3). Also exposes a `.docs` attribute for API parity."""
 
     def __init__(
@@ -421,7 +433,3 @@ def get_store() -> object:
     if backend == "pgvector":
         return PgvectorStore()
     return BM25Store()
-
-
-# Expose a name "Store" used elsewhere
-Store = get_store()

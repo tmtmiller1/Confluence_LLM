@@ -1,4 +1,20 @@
-streamlit>=1.37
-requests>=2.32
-pandas>=2.2
+requests>=2.31
+fastapi>=0.110
+uvicorn>=0.29
+streamlit>=1.35
+pydantic>=2.6
 PyYAML>=6.0
+
+# Attachments (optional)
+PyPDF2>=3.0
+python-docx>=1.1
+python-pptx>=0.6.23
+openpyxl>=3.1
+
+# Embeddings/vector (optional)
+sentence-transformers>=3.0
+faiss-cpu>=1.8.0
+psycopg[binary]>=3.1
+
+xlrd==1.2.0
+olefile>=0.47
